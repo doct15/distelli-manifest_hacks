@@ -1,0 +1,22 @@
+# add user if user doesn't exist
+  Env:
+    - USER=jdoe
+  PreInstall:
+    - if [ -z "$USER" ]; then
+    -   echo "You must set env var USER"
+    -   exit 1
+    - fi
+    - doesexist="$(id $USER || true)"
+    - if [[ ${doesexist:0:3} == "uid" ]]; then
+    -   echo "User $USER exists"
+    - else
+    -   echo "User $USER doesn't exist. Creating..."
+    -   sudo useradd $USER
+    - fi
+    
+# same thing, but "smarter "
+  Env:
+    - USER=jdoe
+  PreInstall:
+    - id "$USER" &> /dev/null || sudo useradd $USER
+

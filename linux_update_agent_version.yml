@@ -1,0 +1,14 @@
+# Updating the agent as a deploy
+  Env:
+    - WAIT_TIME: "30"
+  PostInstall:
+    - wget -qO- https://www.distelli.com/download/client | sudo sh
+  Start:
+    - echo "#!/bin/bash" > /tmp/update_distelli.sh
+    - echo "sleep $WAIT_TIME" >> /tmp/update_distelli.sh
+    - echo "/usr/local/bin/distelli agent install" >> /tmp/update_distelli.sh
+    - sudo chmod 755 /tmp/update_distelli.sh
+    - sudo /tmp/update_distelli.sh &
+  Terminate:
+    - echo "Run a Terminate Deploy after Deploying"
+

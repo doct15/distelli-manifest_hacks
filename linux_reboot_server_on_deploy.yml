@@ -1,0 +1,10 @@
+# Reboot the server with a deploy
+ Env:
+   - WAIT_TIME: "30"
+ Start:
+   - echo "#!/bin/bash" > /tmp/reboot_script.sh
+   - echo "sleep $WAIT_TIME" >> /tmp/reboot_script.sh
+   - echo "reboot" >> /tmp/reboot_script.sh
+   - sudo chmod 755 /tmp/reboot_script.sh
+   - sudo /tmp/reboot_script.sh &
+

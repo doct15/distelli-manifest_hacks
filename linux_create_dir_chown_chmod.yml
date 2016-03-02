@@ -1,0 +1,17 @@
+# Creating and chmod/chown new directory
+  Env:
+    - DIR=/tmp/test/foo/bar
+  PreInstall:
+    - if [ -z "$DIR" ]; then
+    -   echo "You must set env var DIR"
+    -   exit 1
+    - fi
+    - if [ -d "$DIR" ]; then
+    -   echo "Directory $DIR exists."
+    - else
+    -   echo "Directory $DIR does not exist. Creating..."
+    -   mkdir -p $DIR
+    -   sudo chmod -R 666 $DIR
+    -   sudo chown jdoe:jdoe $DIR
+    - fi
+
