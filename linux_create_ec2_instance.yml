@@ -1,0 +1,15 @@
+# Provision an ec2 Instance
+  Env:
+    #- DISTELLI_TOKEN "Set By Distelli"
+    #- DISTELLI_KEY "Set By Distelli"
+    - EC2_ACCESS "User to set in Distelli build vars."
+    - EC2_KEY "User to set in Distelli build vars."
+  AfterBuildSuccess:
+    - wget http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip
+    - sudo mkdir -p /usr/local/ec2
+    - sudo unzip ec2-api-tools.zip -d /usr/local/ec2
+    - export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.5.1
+    - export PATH=$PATH:$EC2_HOME/bin
+    - ec2-run-instances ami-d05e75b8 -t t2.micro -z us-east-1b -s subnet-0255512a -g sg-329fe257 -O "$EC2_ACCESS" -W "$EC2_KEY" -k BM4-Key -n 1 -f userdata1
+
+
