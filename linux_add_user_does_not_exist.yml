@@ -11,12 +11,12 @@
     -   echo "User $USER exists"
     - else
     -   echo "User $USER doesn't exist. Creating..."
-    -   sudo useradd $USER
+    -   sudo useradd -m $USER
     - fi
     
 # same thing, but "smarter "
   Env:
     - USER=jdoe
   PreInstall:
-    - id "$USER" &> /dev/null || sudo useradd $USER
+    - id "$USER" &> /dev/null || sudo useradd -m $USER
 
