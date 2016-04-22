@@ -1,6 +1,5 @@
 ### Distelli manifest hacks
 
-#### NOTE: These are NOT support by Distelli.
 
 * linux_add_user_does_not_exist.yml
 
