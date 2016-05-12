@@ -1,0 +1,7 @@
+  AfterBuildFailure:
+    - gitshow=$(git show)
+    - IFS=$'\n'
+    - gitlines=($gitshow)
+    - bad_commiter=$(echo ${gitlines[1]} | sed -re "s|.*<(.*?)>|\1|g")
+    - mail -s "Your commit broke Distelli Build $DISTELLI_BUILDNUM" $bad_commiter
+
