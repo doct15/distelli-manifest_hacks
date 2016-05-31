@@ -1,0 +1,3 @@
+# Clear the stdout on deploy
+  Exec:
+    - true > distelli-stdout.log
