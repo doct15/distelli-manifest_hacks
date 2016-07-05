@@ -1,4 +1,4 @@
-### Distelli manifest hacks
+### Distelli manifest Examples
 
 
 * linux_add_user_does_not_exist.yml
@@ -29,3 +29,7 @@ An example that safely reboots a server and the deploy will not fail in Distelli
 * linux_update_agent_version.yml
 
 An example that updates the Distelli agent on a server to the latest agent release.
+
+* linux_update_maven_builds.yml
+
+An example that updates Maven on the "Java/JVM" Distelli build image.
