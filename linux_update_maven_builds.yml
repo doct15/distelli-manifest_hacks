@@ -1,0 +1,19 @@
+# Update Maven when building with Distelli Java/JVM build image.
+  Build:
+    - echo "Before"
+    - mvn --version
+    - which mvn
+    - echo ""
+
+    - wget --no-verbose http://apache.claz.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+    - sudo tar -zxvf apache-maven-3.3.9-bin.tar.gz -C /usr/local
+    - sudo rm /usr/local/maven
+    - sudo ln -sf /usr/local/apache-maven-3.3.9 /usr/local/maven
+    - export PATH=$(echo $PATH | sed -e 's;:\?/usr/local/maven-3.2.5/bin;;' -e 's;/usr/local/maven-3.2.5/bin:\?;;')
+    - export PATH=/usr/local/apache-maven-3.3.9/bin:$PATH
+
+    - echo ""
+    - echo "After"
+    - mvn --version
+    - which mvn
+    # Add your buid steps below
