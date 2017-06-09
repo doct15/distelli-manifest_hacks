@@ -1,0 +1,26 @@
+#Capture the branch being built and make that value available during deploys
+  PreBuild:
+    - ISGIT=$(git symbolic-ref HEAD || echo "false")
+    - ISHG=$(hg branch || echo "false")
+    - 
+    - if [ $ISHG = "false" ]; then
+    -   if [ $ISGIT = "false" ]; then
+    -     echo "This is neither git or hg. Exiting."
+    -     exit 1
+    -   fi
+    -   echo "This is git"
+    -   BRANCH=$(git for-each-ref --format='%(upstream)' $(git symbolic-ref HEAD) | sed 's!refs/remotes/[^/]*/!!')
+    - else
+    -   echo "This is hg"
+    -   BRANCH=$(hg branch)
+    - fi
+    - 
+    - echo "Branch: $BRANCH"
+    - echo $BRANCH > branch-name.txt
+  PkgInclude:
+    - branch-name.txt
+  PostInstall:
+    #You will have to include this export in any manifest section you want to use the DISTELLI_RELBRANCH.
+    #This is only available after the Install phase.
+    - export DISTELLI_RELBRANCH="$(cat branch-name.txt)"
+    - echo "Branch built: $DISTELLI_RELBRANCH"
