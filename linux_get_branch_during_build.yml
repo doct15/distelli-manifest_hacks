@@ -17,10 +17,10 @@
     - 
     - echo "Branch: $BRANCH"
     - echo $BRANCH > branch-name.txt
+    - export DISTELLI_RELBRANCH="$(cat branch-name.txt)"
+  Build:
+    - export DISTELLI_RELBRANCH="$(cat branch-name.txt)"
+    - echo $BRANCH > branch-name.txt    
   PkgInclude:
     - branch-name.txt
-  PostInstall:
-    #You will have to include this export in any manifest section you want to use the DISTELLI_RELBRANCH.
-    #This is only available after the Install phase.
-    - export DISTELLI_RELBRANCH="$(cat branch-name.txt)"
-    - echo "Branch built: $DISTELLI_RELBRANCH"
+
